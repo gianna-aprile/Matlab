@@ -1,13 +1,15 @@
 % Gianna Aprile
 % 0699
 % Section C3
-% Math 250 MATLAB Lab Assignment #2
+% Math 250 
 
 format compact
 format short
 
 % Question 1(a)
+
 rand('seed', 0699)
+
 A = rmat(3, 5), rank(A(:,1:3))
 A =
      5     4     0     5     3
@@ -15,6 +17,7 @@ A =
      9     7     1     4     5
 ans =
      3
+
 b = rvect(3), R = rref([A  b])
 b =
      8
@@ -24,11 +27,13 @@ R =
     1.0000         0         0    4.6364    1.3636   10.9091
          0    1.0000         0   -4.5455   -0.9545  -11.6364
          0         0    1.0000   -5.9091   -0.5909  -13.7273
+
 S = R(:,1:5)
 S =
     1.0000         0         0    4.6364    1.3636
          0    1.0000         0   -4.5455   -0.9545
          0         0    1.0000   -5.9091   -0.5909
+
 rref(A)
 ans =
     1.0000         0         0    4.6364    1.3636
@@ -86,7 +91,9 @@ ans =
      0
      0
 
+
 % (ii)
+
 % In matrix A, x4 and x5 are free variables
 % In order to solve the equations of RREF(A), set the free variables equal to zero
 % This results in the remaining values of x in Ax=b
@@ -180,6 +187,7 @@ y =
     0.9058
 
 % (ii) 
+
 % Using the Properties of Matrix-Vector Products proves that Ay=0
 % The two properties which ensure that is true are A(cu)=c(Au)=(cA)u for every scalar c, and A(u+v)=Au+Av
 % The first properties proves that A(su)=s(Au) and A(tv)=t(Av)
@@ -291,6 +299,7 @@ ans =
 % This means theres a non-trivial solution
 
 % Question 2(c)
+
 v = rand(1)*u1 + rand(1)*u2
 
 v =
@@ -389,6 +398,7 @@ ans =
 
          496        2049        1873
          668        1638        1754
+
 
 % Question 3(b)
 A=[0 1;0 0], B=[0 0;1 0], C=[0 1;1 0]
