@@ -1,0 +1,466 @@
+% Gianna Aprile
+% 0699
+% Section C3
+% Math 250 MATLAB Lab Assignment #6
+format compact
+rand('seed', 0699)
+
+% Question 1(a)
+
+u = rvect(2), v = rvect(2)
+
+u =
+
+     6
+     1
+
+
+v =
+
+     7
+     0
+
+rank([u, v])
+
+ans =
+
+     2
+
+% The Triangle Inequality that relates the norms ||u||  ||v|| and ||u+v|| for a general pair of vectors u,v is
+% ||u|| + ||v|| >=  ||u+v||
+% In my example ||u|| = 6.0828  ||v|| = 7 and ||u+v|| = 13.0384
+% 6.0828 + 7  >= 13.0384
+% 13.0828 >= 13.0384 which is true
+
+norm(u)
+
+ans =
+
+    6.0828
+
+norm(v)
+
+ans =
+
+     7
+
+norm(u+v)
+
+ans =
+
+   13.0384
+
+norm(u)+norm(v)
+
+ans =
+
+   13.0828
+
+% Question 1(b)
+
+% The Cauchy-Schwarz Inequality states that for any vectors u and v in R^n,
+% ||u|| dot ||v|| >=  |u dot v|
+% This means that the dot product of the norm of u and the norm of v will always be greater than 
+% or equal to the absolute value of the dot product of u and v.
+% In my example, ||u|| dot ||v|| = 42.5793  and |u dot v| = 42
+% 42.5793 is greater than 42 which is correct.
+
+norm(u)'*norm(v)
+
+ans =
+
+   42.5793
+
+abs(u'*v)
+
+ans =
+
+    42
+
+% Question 1(c)
+
+w = ((u'*v)/(v'*v))*v
+
+w =
+
+     6
+     0
+
+z=u-w
+
+z =
+
+     0
+     1
+
+z'*v
+
+ans =
+
+     0
+
+
+% Question 1(d)
+P=v*inv(v'*v)*v'
+
+P =
+
+     1     0
+     0     0
+
+% P is a 2x2 matrix since v is a 2x1 matrix, inv(v'*v) is a 1x1 matrix, and v' is a 1x2 matrix
+% The first matrix product of v*inv(v'*v) results in a 2x1 matrix which is then multiplied by v' a 1x2 matrix
+% This results in P being a 2x2 matrix.
+
+P*u
+
+ans =
+
+     6
+     0
+
+w
+
+w =
+
+     6
+     0
+
+% Question 2(a)
+u1 = rvect(3), u2 = rvect(3), u3 = rvect(3)
+
+u1 =
+
+     8
+     9
+     1
+
+
+u2 =
+
+     9
+     6
+     0
+
+
+u3 =
+
+     2
+     5
+     9
+
+rank([u1, u2, u3])
+
+ans =
+
+     3
+
+r = 0:0.05:1; hold on
+
+plot3(r*u1(1),r*u1(2),r*u1(3), 'r:')
+plot3(r*u2(1),r*u2(2),r*u2(3), 'g:')
+plot3(r*u3(1),r*u3(2),r*u3(3), 'b:')
+
+% The vectors aren't perpendicular therefore they are not mutually othogonal 
+
+% Question 2(b)
+
+v1 = u1
+
+v1 =
+
+     8
+     9
+     1
+
+P1= v1*inv(v1'*v1)*v1', v2=u2-P1*u2
+
+P1 =
+
+    0.4384    0.4932    0.0548
+    0.4932    0.5548    0.0616
+    0.0548    0.0616    0.0068
+
+
+v2 =
+
+    2.0959
+   -1.7671
+   -0.8630
+
+v1'*v2
+
+ans =
+
+   1.1102e-14
+
+plot3(r*v2(1),r*v2(2),r*v2(3), 'g-.')
+
+P2 = v2*inv(v2'*v2)*v2', v3 = u3 - P1*u3 - P2*u3
+
+P2 =
+
+    0.5318   -0.4484   -0.2190
+   -0.4484    0.3780    0.1846
+   -0.2190    0.1846    0.0902
+
+
+v3 =
+
+    1.3134
+   -1.9701
+    7.2239
+
+v3'*v1
+
+ans =
+
+   2.1316e-14
+
+v3'*v2
+
+ans =
+
+  -6.2172e-15
+
+plot3(r*v3(1),r*v3(2),r*v3(3), 'b-.')
+
+% Question 2(c)
+
+w1 = v1/norm(v1), w2 = v2/norm(v2), w3 = v3/norm(v3)
+
+w1 =
+
+    0.6621
+    0.7448
+    0.0828
+
+
+w2 =
+
+    0.7292
+   -0.6149
+   -0.3003
+
+
+w3 =
+
+    0.1728
+   -0.2592
+    0.9503
+
+Q =[w1, w2, w3]
+
+Q =
+
+    0.6621    0.7292    0.1728
+    0.7448   -0.6149   -0.2592
+    0.0828   -0.3003    0.9503
+
+% i) 
+% The entries in the 3x3 matrix (Q^T * Q) are composed of (wi dot wj). wi is each row in Q^T and wj is each column in Q
+% By the orthomonal property of {w1,w2,w3}, (Q^T * Q) is a 3x3 identity matrix. 
+% This is because the property states that if a matrix is square and othogonal, then it is equal to the identity matrix.
+% This happens because the columns of Q are orthonormal, so when it is mulltiplied by Q^T, everything in the matrix becomes 0 
+% besides the diagonal
+
+% ii) 
+% It is a Theorem that a matrix is orthogonal if and only if Q^-1 = Q^T
+% Since we already know that Q is orthogonal from previouse parts of the question,
+% this must mean that Q^-1 = Q^T.
+
+transpose(Q)*Q
+
+ans =
+
+    1.0000    0.0000    0.0000
+    0.0000    1.0000   -0.0000
+    0.0000   -0.0000    1.0000
+
+inv(Q)
+
+ans =
+
+    0.6621    0.7448    0.0828
+    0.7292   -0.6149   -0.3003
+    0.1728   -0.2592    0.9503
+
+transpose(Q)
+
+ans =
+
+    0.6621    0.7448    0.0828
+    0.7292   -0.6149   -0.3003
+    0.1728   -0.2592    0.9503
+
+% Question 2(d)
+
+A = [u1, u2, u3], R = Q'*A
+
+A =
+
+     8     9     2
+     9     6     5
+     1     0     9
+
+
+R =
+
+   12.0830   10.4278    5.7932
+    0.0000    2.8741   -4.3183
+    0.0000    0.0000    7.6020
+
+Q*R
+
+ans =
+
+    8.0000    9.0000    2.0000
+    9.0000    6.0000    5.0000
+    1.0000    0.0000    9.0000
+
+% iii)
+% R is the dot product of of Q and A, and Q is an othogonal matrix.
+% Since w2 dot u1 is the second column of Q (which is orthonormal) dotted with the first column of A 
+% And w2 dot u1 = 0  then the entry (2,1) in R  will also be 0 because w2 is an orthonormal column of Q
+% By similar methods w3 dot u1 and w3 dot u2 will both also equal zero because w3 and w2 are orthonormal columns of Q
+% Therefore R(3,1) and R(3,2) both equal zero as well.
+% R is an uppertriangular matrix because the dot product of A with the orthogonal matrix Q results in 
+% having 0's in the locations corressponding to (w2 dot u1), (w3 dot u1), and (w3 dot u2)
+
+% Question 3(a)
+
+a1 = rvect(5); a2 = rvect(5); a3 = rvect(5); A = [a1, a2, a3]
+
+A =
+
+     9     8     9
+     1     1     6
+     9     4     0
+     9     9     8
+     4     7     9
+
+rank(A)
+
+ans =
+
+     3
+
+Q = grams(A); w1 = Q(:,1), w2 = Q(:,2), w3 = Q(:,3)
+
+w1 =
+
+    0.5582
+    0.0620
+    0.5582
+    0.5582
+    0.2481
+
+
+w2 =
+
+    0.0854
+    0.0304
+   -0.6676
+    0.2737
+    0.6864
+
+
+w3 =
+
+    0.2704
+    0.9237
+   -0.0983
+   -0.2419
+   -0.0738
+
+Q'*Q
+
+ans =
+
+    1.0000    0.0000   -0.0000
+    0.0000    1.0000    0.0000
+   -0.0000    0.0000    1.0000
+
+% By the orthomonal property of {w1,w2,w3} , 
+% since (Q dot Q) is a 3x3 identity matrix, the set {w1,w2,w3} is an orthonormal set of vectors.
+
+% Question 3(b)
+
+P = w1*w1' + w2*w2' + w3*w3'
+
+P =
+
+    0.3919    0.2870    0.2279    0.2695    0.1772
+    0.2870    0.8580   -0.0765   -0.1805   -0.0319
+    0.2279   -0.0765    0.7669    0.1526   -0.3125
+    0.2695   -0.1805    0.1526    0.4450    0.3442
+    0.1772   -0.0319   -0.3125    0.3442    0.5382
+
+v = rvect(5)
+
+v =
+
+     6
+     7
+     7
+     3
+     6
+
+w=P*v, z=v-w
+
+w =
+
+    7.8274
+    6.4596
+    4.7826
+    4.8218
+    2.9135
+
+
+z =
+
+   -1.8274
+    0.5404
+    2.2174
+   -1.8218
+    3.0865
+
+P*w
+
+ans =
+
+    7.8274
+    6.4596
+    4.7826
+    4.8218
+    2.9135
+
+P*z
+
+ans =
+
+   1.0e-14 *
+
+    0.0490
+    0.0455
+    0.1624
+    0.0051
+   -0.0837
+
+% Question 3(c)
+
+PW = A*inv(A'*A)*A'
+
+PW =
+
+    0.3919    0.2870    0.2279    0.2695    0.1772
+    0.2870    0.8580   -0.0765   -0.1805   -0.0319
+    0.2279   -0.0765    0.7669    0.1526   -0.3125
+    0.2695   -0.1805    0.1526    0.4450    0.3442
+    0.1772   -0.0319   -0.3125    0.3442    0.5382
+
+norm(PW - P)
+
+ans =
+
+   2.5575e-15
